@@ -57,7 +57,7 @@ public:
 
 private:
     int size;
-    list<float> history;
+	std::list<float> history;
     bool autoMax;
     float max;
 };

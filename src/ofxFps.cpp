@@ -29,12 +29,17 @@
 
 #endif
 
-struct less_first : std::binary_function<Tick,Tick,bool>
-{
-    inline bool operator()( const Tick& lhs, const Tick& rhs )
-    {
-        return lhs.second < rhs.second;
-    }
+//struct less_first : std::binary_function<Tick,Tick,bool>
+//{
+//    inline bool operator()( const Tick& lhs, const Tick& rhs )
+//    {
+//        return lhs.second < rhs.second;
+//    }
+//};
+struct less_first {//C++17 fix
+	inline bool operator()(const Tick & lhs, const Tick & rhs) {
+		return lhs.second < rhs.second;
+	}
 };
 
 ofxFps::ofxFps() {
@@ -195,13 +200,13 @@ void ofxFpsHistory::draw(float x, float y, float height) {
 
     if (autoMax) {
         max = 0.f;
-        list<float>::iterator it=history.begin();
+        std::list<float>::iterator it=history.begin();
         for (; it!=history.end(); ++it) {
             if (*it > max)
                 max = *it;
         }
     }
-    list<float>::iterator it=history.begin();
+	std::list<float>::iterator it = history.begin();
     for (; it!=history.end(); ++it) {
         ofLine(x, y+height, x, y+height-(*it/max)*height);
         x++;
